@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div style="text-align: center">
+      <h1>Currently we play:</h1>
+
+      <div class="container py-3" *ngFor="let film of films">
+          <div class="card">
+            <div class="row ">
+              <div class="col-md-4">
+                  <img src="{{'data:image/png;base64,'+film.imageBase64}}" class="w-100">
+                </div>
+                <div class="col-md-8 px-3">
+                  <div class="card-block px-3">
+                    <h4 class="card-title">{{film.title}}</h4>
+                    <p class="card-text"><b>Category:</b> {{film.category}} <b>Length:</b> {{film.length}} <b>Rating:</b> {{film.rating}}/5</p>
+                    <p class="card-text">{{film.description}}</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+</div>

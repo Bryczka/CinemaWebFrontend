@@ -1,0 +1,16 @@
+#customFile .custom-file-control:lang(en)::after {
+    content: "Select file...";
+  }
+  
+  #customFile .custom-file-control:lang(en)::before {
+    content: "Click me";
+  }
+  
+  .custom-file-control.selected:lang(en)::after {
+    content: "" !important;
+  }
+  
+  .custom-file {
+    overflow: hidden;
+  }
+  

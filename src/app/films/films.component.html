@@ -1,0 +1,83 @@
+<form #addform="ngForm" (ngSubmit)="addFilm()">
+  <div class="form-row mt-5">
+    <div class="form-group col-md-4 ml-4">
+      <label for="title">Title</label>
+      <input class="form-control" type="text" id="title" placeholder="Title" required name="title" [(ngModel)]="filmToAdd.Title" />
+    </div>
+    <div class="form-group col-md-4">
+      <label for="category">Category</label>
+      <input class="form-control" type="text" id="category" placeholder="Category" required name="category" [(ngModel)]="filmToAdd.Category" />
+    </div>
+    <div class="form-group col-md-2">
+      <label for="length">Length</label>
+      <input class="form-control" type="text" id="length" placeholder="Length" required name="length" [(ngModel)]="filmToAdd.Length" />
+    </div>
+    <div class="form-group col-md-1 mr-1">
+      <label for="rating">Rating (max. 5)</label>
+      <select class="custom-select" id="rating" type="number" required name="rating" [(ngModel)]="filmToAdd.Rating">
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="2">2</option>
+        <option [ngValue]="3">3</option>
+        <option [ngValue]="4">4</option>
+        <option [ngValue]="5">5</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group ml-4 mr-5 col-md-6">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" rows="15" type="text" required name="description"
+        [(ngModel)]="filmToAdd.Description"></textarea>
+    </div>
+    <div class="form-group ml-5 mr-4 mt-4 col-md-3" >
+      <div class="card">
+        <div class="card-body">
+            <img [src]="url" class="img-fluid"> 
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="readUrl($event)">
+                  <label class="custom-file-label" for="inputGroupFile02" >Choose file...</label>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary ml-4 col-md-3" (click)="addFilm()" *ngIf="!editMode">Add film</button>
+  <button type="button" class="btn btn-secondary ml-4 col-md-3" *ngIf="editMode" (click)="edit()">Edit</button>
+  <button type="button" class="btn btn-secondary ml-4 col-md-3" (click)="editMode=false"
+    *ngIf="editMode">Cancel</button>
+</form>
+
+<form class="m-3 text-center">
+  <table class="table p-3 table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Film ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Category</th>
+        <th scope="col">Length</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let film of films; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ film.filmId }}</td>
+        <td>{{ film.title }}</td>
+        <td>{{ film.category }}</td>
+        <td>{{ film.length }}</td>
+        <td>{{ film.rating }}/5</td>
+        <td>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary" (click)="prepareEdit(film.filmId, film.title, film.category, film.length, film.rating, film.description, film.imageBase64)">Edit</button>
+            <button type="button" class="btn btn-secondary" (click)="delete(film.filmId)">Delete</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

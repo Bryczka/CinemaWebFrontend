@@ -1,0 +1,57 @@
+<form #addform="ngForm">
+    <div class="form-row mt-4">
+        <div class="form-group col-md-1 ml-5">
+            <label for="rating">Film title</label>
+            <select class="custom-select" type="text" required name="film" [(ngModel)]="filmshowToAdd.filmId">
+                <option *ngFor='let film of films' [ngValue]="film.filmId">{{ film.title }}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1 mr-1">
+            <label for="rating">Hall name</label>
+            <select class="custom-select" type="text" required name="hall" [(ngModel)]="filmshowToAdd.hallId">
+                <option *ngFor='let hall of halls' [ngValue]="hall.hallId">{{ hall.name }}</option>
+            </select>
+        </div>
+        <div class="input-group col-md-1 mr-1">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker
+                #d="ngbDatepicker">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>
+        <ngb-timepicker required name="time" [(ngModel)]="time"></ngb-timepicker>
+        <button type="button" class="btn btn-secondary btn-lg col-3 m-4" (click)="addFilmshow()" *ngIf="!editMode">Add new filmshow</button>
+        <button type="button" class="btn btn-secondary ml-4 col-md-3" *ngIf="editMode" (click)="edit()">Edit</button>
+        <button type="button" class="btn btn-secondary ml-4 col-md-3" (click)="editMode=false" *ngIf="editMode">Cancel</button>
+    </div>
+</form>
+
+<form class="m-3 text-center">
+    <table class="table p-3 table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Filmshow ID</th>
+                <th scope="col">Date and time</th>
+                <th scope="col">Film title</th>
+                <th scope="col">Hall name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let filmshow of filmshows; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ filmshow.filmshowId }}</td>
+                <td>{{ filmshow.filmshowDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                <td>{{ filmshow.filmTitle }}</td>
+                <td>{{ filmshow.hallName }}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary"
+                            (click)="prepareEdit(filmshow.filmshowId, filmshow.filmshowDate, filmshow.filmId, filmshow.hallId)">Edit</button>
+                        <button type="button" class="btn btn-secondary"
+                            (click)="delete(filmshow.filmshowId)">Delete</button>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

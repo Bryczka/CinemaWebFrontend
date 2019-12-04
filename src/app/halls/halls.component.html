@@ -1,0 +1,46 @@
+<form #addform="ngForm">
+    <div class="form-row mt-3">
+        <div class="form-group col-md-3 ml-4">
+            <label for="rows">Hall name</label>
+            <input class="form-control" type="text" id="hallName" placeholder="Hall name" required name="hallName"
+                [(ngModel)]="hallToAdd.Name" />
+        </div>
+        <div class="form-group col-md-3 ml-4">
+            <label for="rows">Rows number</label>
+            <input class="form-control" type="number" id="rows" placeholder="Rows number" required name="rows"
+                [(ngModel)]="hallToAdd.RowsNumber" />
+        </div>
+        <div class="form-group col-md-3 mr-3">
+            <label for="seats">Seats in row</label>
+            <input class="form-control" type="number" id="seats" placeholder="Number of seats" required name="seats"
+                [(ngModel)]="hallToAdd.SeatsInRowNumber" />
+        </div>
+        <button type="button" class="btn btn-secondary btn-lg col-3 m-4" (click)="addHall()">Add new hall</button>
+    </div>
+</form>
+
+<form class="m-3 text-center">
+    <table class="table p-3 table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Hall ID</th>
+                <th scope="col">Hall Name</th>
+                <th scope="col">Seats</th>
+                <th scope="col">Filmshows</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let hall of halls; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ hall.hallId }}</td>
+                <td>{{ hall.name }}</td>
+                <td>{{ hall.seats.length }}</td>
+                <td>{{hall.filmshows }}</td>
+                <td>
+                    <button type="button" class="btn btn-secondary" (click)="delete(hall.hallId)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
