@@ -25,4 +25,8 @@ export class FilmService {
     return this.http.put(this.baseUrl + 'film', filmData);
 
   }
+
+  getFilm(filmId: any) {
+    return this.http.get(this.baseUrl + 'film/' + filmId);
+  }
 }

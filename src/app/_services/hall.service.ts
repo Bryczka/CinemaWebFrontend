@@ -21,4 +21,8 @@ export class HallService {
     return this.http.delete(this.baseUrl + 'hall/' + hallId);
   }
 
+  getHall(hallId: any) {
+    return this.http.get(this.baseUrl + hallId);
+  }
+
 }

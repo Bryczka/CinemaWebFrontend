@@ -13,7 +13,7 @@
                     <h4 class="card-title">{{film.title}}</h4>
                     <p class="card-text"><b>Category:</b> {{film.category}} <b>Length:</b> {{film.length}} <b>Rating:</b> {{film.rating}}/5</p>
                     <p class="card-text">{{film.description}}</p>
-                    <a href="#" class="btn btn-primary">Read More</a>
+                    <a routerLink="/home/{{film.filmId}}" class="btn btn-primary" routerLinkActive="active">Read More</a>
                   </div>
                 </div>
               </div>

@@ -5,7 +5,8 @@ import {FormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -18,6 +19,11 @@ import { FilmshowsComponent } from './filmshows/filmshows.component';
 import { FilmsComponent } from './films/films.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HallsComponent } from './halls/halls.component';
+import { FilmsDetailedComponent } from './films/filmsDetailed/filmsDetailed.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import { LoginComponent } from './login/login.component';
+import { PaypalComponent } from './paypal/paypal.component';
+
 
 @NgModule({
    declarations: [
@@ -27,7 +33,11 @@ import { HallsComponent } from './halls/halls.component';
       RegisterComponent,
       FilmshowsComponent,
       HallsComponent,
-      FilmsComponent
+      FilmsComponent,
+      FilmsDetailedComponent,
+      TicketsComponent,
+      LoginComponent,
+      PaypalComponent
    ],
    imports: [
       BrowserModule,
@@ -36,7 +46,9 @@ import { HallsComponent } from './halls/halls.component';
       RouterModule.forRoot(appRoutes),
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,
-      NgbModule
+      NgbModule,
+      CarouselModule.forRoot(),
+      ModalModule.forRoot()
    ],
    providers: [
       AuthService,

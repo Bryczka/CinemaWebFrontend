@@ -1,0 +1,31 @@
+<div class="row m-2 text-center">
+  <div class="card col-6">
+    <div class="row">
+      <div class="card m-3" style="width: 14vw; height: 40vh;" *ngFor="let seat of seats">
+        <div class="card-body">
+          <h5 class="card-title">{{filmshow.filmTitle}}</h5>
+          <p class="card-text">Hall: {{hall.name}}</p>
+          <p class="card-text">Date: {{ filmshow.filmshowDate | date:'yyyy-MM-dd'}} Time:
+            {{ filmshow.filmshowDate | date:'HH:mm'}}</p>
+          <p class="card-text">Row: {{seat.row}} Seat: {{seat.seatNumber}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card col-6 text-center">
+
+    <div class="card-body " *ngIf="loggedIn()">
+      <h5 class="card-title">You are logged in!</h5>
+      <p class="card-text">Complete payment to get tickets</p>
+      <app-paypal></app-paypal>
+    </div>
+
+    <div class="card-body" *ngIf="!loggedIn()">
+      <div class="row">
+          <app-login class="col-6"></app-login>
+          <app-register class="col-6"></app-register>    
+      </div>   
+    </div>
+
+  </div>
