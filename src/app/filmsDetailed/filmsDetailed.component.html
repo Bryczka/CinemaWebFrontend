@@ -1,6 +1,6 @@
 <div class="form-row m-2">
   <div class="col-4">
-    <img src="{{'data:image/png;base64,'+film?.imageBase64}}">
+    <img src="{{'data:image/png;base64,'+film?.imageBase64}}" style="height: 55vh;">
   </div>
   <div class="col-8">
     <h1>{{film.title}}</h1>
@@ -37,7 +37,7 @@
   </div>
 </ng-template>
 
-<carousel [interval]="0" class="fixed-bottom">
+<carousel [interval]="0" class="fixed-bottom" style="height: 37vh;">
   <slide *ngFor="let number of [0,1,2,3,4,5,6]; index as i">
     <div class="text-center py-5 bg-dark text-white ">
       <h2>{{ getCurrentDate(i) | date:'yyyy-MM-dd'}}</h2>

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { LoginComponent } from './login/login.component';
 import { PaypalComponent } from './paypal/paypal.component';
 import { UserTicketsComponent } from './user-tickets/user-tickets.component';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatInputModule } from '@angular/material';
 import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-tickets.component';
 
 @NgModule({
@@ -53,7 +53,9 @@ import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-ti
       NgbModule,
       CarouselModule.forRoot(),
       ModalModule.forRoot(),
-      MatDialogModule
+      MatDialogModule,
+      MatInputModule,
+      ReactiveFormsModule
    ],
    providers: [
       AuthService,
@@ -63,7 +65,8 @@ import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-ti
       AppComponent
    ],
    entryComponents: [
-      NavigateTicketsComponent
+      NavigateTicketsComponent,
+      RegisterComponent
    ]
 })
 export class AppModule { }

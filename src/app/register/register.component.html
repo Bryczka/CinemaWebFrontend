@@ -1,41 +1,57 @@
-<div class="container">
-  <form #registerForm="ngForm" (ngSubmit)="register()">
-  <h2 class="text-center text-primary">Register</h2>
-  <hr />
-
-  <div class="form-group">
-    <input type="text" class="form-control" required name="login" placeholder="Login"
-      [(ngModel)]="userRegisterData.login" />
+<div class="modal-header">
+    <h4 class="modal-title">Register!</h4>
   </div>
+  <div class="modal-body">
+          <form [formGroup]="registerForm">
 
-  <div class="form-group">
-    <input type="password" class="form-control" required name="password" placeholder="Password"
-      [(ngModel)]="userRegisterData.password" />
-  </div>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="User name" [formControl]="userNameFormControl">
+              <mat-error *ngIf="userNameFormControl.hasError('required')"> User name is <strong>required</strong></mat-error>
+              <mat-error *ngIf="userNameFormControl.hasError('minlength')">User name is <strong>too short</strong></mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="example-full-width">
+              <input type="password" matInput placeholder="Enter your password" [formControl]="passwordFormControl">
+              <mat-error *ngIf="passwordFormControl.hasError('minlength')">Password is <strong>too short</strong></mat-error>
+              <mat-error *ngIf="userNameFormControl.hasError('required')">Password is <strong>required</strong></mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="example-full-width">
+                <input type="password" matInput placeholder="Confirm your password" [formControl]="confirmationFormControl">
+                <mat-error *ngIf="confirmationFormControl.hasError('minlength')">Password is <strong>too short</strong></mat-error>
+                <mat-error *ngIf="confirmationFormControl.hasError('required')">Password is <strong>required</strong></mat-error>
+              </mat-form-field>
+      
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email" [formControl]="emailFormControl">
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Please enter a valid email address</mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">Email is <strong>required</strong></mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Name" [formControl]="nameFormControl">
+              <mat-error *ngIf="nameFormControl.hasError('required')">Name is <strong>required</strong></mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Surname" [formControl]="surnameFormControl">
+              <mat-error *ngIf="surnameFormControl.hasError('required')">Surname is <strong>required</strong></mat-error>
+            </mat-form-field>
+      
+            <mat-form-field class="example-full-width">
+              <span matPrefix>+48 &nbsp;</span>
+              <input type="tel" matInput placeholder="Phone number" [formControl]="phoneFormControl">
+              <mat-error *ngIf="phoneFormControl.hasError('minlength')">Phone number is <strong>too short</strong></mat-error>
+              <mat-error *ngIf="phoneFormControl.hasError('maxlength')">Phone number is <strong>too long</strong></mat-error>
+              <mat-error *ngIf="phoneFormControl.hasError('required')">Phone number is <strong>required</strong></mat-error>
+            </mat-form-field>
+          </form>
+      
+        <div class="form-group text-center">
+            <mat-error *ngIf="passwordFormControl.value !== confirmationFormControl.value">*Passwords do not <strong>match</strong></mat-error>
+            <button class="btn btn-success" (click)="register()" [disabled]="!checkValidation()" [mat-dialog-close]>Register</button>
+            <button class="btn btn-default" type="button" [mat-dialog-close]>Cancel</button>
+        </div>
+      </div>
 
-  <div class="form-group">
-    <input type="text" class="form-control" required name="email" placeholder="Email"
-      [(ngModel)]="userRegisterData.email" />
-  </div>
 
-  <div class="form-group">
-    <input type="text" class="form-control" required name="name" placeholder="Name"
-      [(ngModel)]="userRegisterData.name" />
-  </div>
-
-  <div class="form-group">
-    <input type="text" class="form-control" required name="surname" placeholder="Surname"
-      [(ngModel)]="userRegisterData.surname" />
-  </div>
-
-  <div class="form-group">
-    <input type="text" class="form-control" required name="phoneNumber" placeholder="PhoneNumber"
-      [(ngModel)]="userRegisterData.phoneNumber" />
-  </div>
-
-  <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Register</button>
-    <button class="btn btn-default" type="button" (click)="cancel()" [routerLink]="['/home']">Cancel</button>
-  </div>
-  </form>
-</div>

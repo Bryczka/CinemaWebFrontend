@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { environment } from 'src/environments/environment';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +10,8 @@ import { environment } from 'src/environments/environment';
 })
 export class NavComponent implements OnInit {
   userLoginData: any = {};
-  constructor(private authService: AuthService) { }
+  dialogConfig: MatDialogConfig;
+  constructor(private authService: AuthService, private matDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -41,5 +43,12 @@ export class NavComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  openModal() {
+    this.matDialog.open(RegisterComponent,  {
+      height: '80%',
+      width: '40%'
+    });
   }
 }
