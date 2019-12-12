@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../_services/film.service';
 import { Film } from '../models/Film';
 
@@ -17,7 +17,6 @@ export class FilmsComponent implements OnInit {
 
   ngOnInit() {
     this.getFilms();
-
   }
 
   getFilms() {
@@ -32,7 +31,7 @@ export class FilmsComponent implements OnInit {
     this.filmToAdd.imageBase64 = this.url;
     this.filmService.addFilm(this.filmToAdd).subscribe(() => {
       console.log('Film added');
-      this.getFilms();
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
@@ -52,7 +51,7 @@ export class FilmsComponent implements OnInit {
   edit() {
     this.filmService.editFilm(this.filmToAdd).subscribe(() => {
       console.log('Film edited');
-      this.getFilms();
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
@@ -61,7 +60,7 @@ export class FilmsComponent implements OnInit {
   delete(filmId: any) {
     this.filmService.deleteFilm(filmId).subscribe(() => {
       console.log('Film deleted');
-      this.getFilms();
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
@@ -75,5 +74,12 @@ export class FilmsComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[0]);
     }
+  }
+
+  resetAndReload() {
+      this.filmToAdd = new Film();
+      this.url = '../assets/images/no-image.jpg';
+      this.getFilms();
+      this.editMode = false;
   }
 }

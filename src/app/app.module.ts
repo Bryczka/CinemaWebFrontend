@@ -24,6 +24,8 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { LoginComponent } from './login/login.component';
 import { PaypalComponent } from './paypal/paypal.component';
 import { UserTicketsComponent } from './user-tickets/user-tickets.component';
+import { MatDialogModule } from '@angular/material';
+import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-tickets.component';
 
 @NgModule({
    declarations: [
@@ -38,7 +40,8 @@ import { UserTicketsComponent } from './user-tickets/user-tickets.component';
       TicketsComponent,
       LoginComponent,
       PaypalComponent,
-      UserTicketsComponent
+      UserTicketsComponent,
+      NavigateTicketsComponent
    ],
    imports: [
       BrowserModule,
@@ -49,7 +52,8 @@ import { UserTicketsComponent } from './user-tickets/user-tickets.component';
       BrowserAnimationsModule,
       NgbModule,
       CarouselModule.forRoot(),
-      ModalModule.forRoot()
+      ModalModule.forRoot(),
+      MatDialogModule
    ],
    providers: [
       AuthService,
@@ -57,6 +61,9 @@ import { UserTicketsComponent } from './user-tickets/user-tickets.component';
    ],
    bootstrap: [
       AppComponent
+   ],
+   entryComponents: [
+      NavigateTicketsComponent
    ]
 })
 export class AppModule { }

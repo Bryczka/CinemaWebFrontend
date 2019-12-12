@@ -15,7 +15,7 @@ export const appRoutes: Routes = [
     {path: 'filmshows', component: FilmshowsComponent},
     {path: 'halls', component: HallsComponent},
     {path: 'tickets', component: TicketsComponent},
-    {path: 'films/details', component: FilmsDetailedComponent},
+    {path: 'films/:filmId', component: FilmsDetailedComponent},
     {path: 'user/tickets', component: UserTicketsComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

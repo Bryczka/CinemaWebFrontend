@@ -61,6 +61,7 @@ export class FilmshowsComponent implements OnInit {
 
     this.filmshowService.addFilmshow(this.filmshowToAdd).subscribe(() => {
       console.log('Filmshow added');
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
@@ -69,6 +70,7 @@ export class FilmshowsComponent implements OnInit {
   delete(filmshowId: any) {
     this.filmshowService.deleteFilmshow(filmshowId).subscribe(() => {
       console.log('Filmshow deleted');
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
@@ -80,7 +82,6 @@ export class FilmshowsComponent implements OnInit {
     this.filmshowToAdd.filmshowId = filmshowId;
     this.filmshowToAdd.filmId = filmId;
     this.filmshowToAdd.hallId = hallId;
-    console.log(filmshowDatetmp);
     this.date =  {year: filmshowDatetmp.getUTCFullYear(), month: filmshowDatetmp.getUTCMonth() + 1, day: filmshowDatetmp.getDate()};
     this.time = {hour: filmshowDatetmp.getHours(), minute: filmshowDatetmp.getMinutes()};
   }
@@ -91,12 +92,18 @@ export class FilmshowsComponent implements OnInit {
     newDate.setUTCHours(this.time.hour, this.time.minute);
     newDate.setUTCFullYear(this.date.year, this.date.month - 1, this.date.day);
     this.filmshowToAdd.filmshowTime = newDate;
-
     this.filmshowService.editFilmshow(this.filmshowToAdd).subscribe(() => {
       console.log('Filmshow edited');
-    // this.getFilms(); TO REFRESH
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
   }
+
+  resetAndReload() {
+    this.getFilmshows();
+    this.getHalls();
+    this.getFilms();
+    this.editMode = false;
+}
 }

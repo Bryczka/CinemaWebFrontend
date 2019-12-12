@@ -29,6 +29,7 @@ export class HallsComponent implements OnInit {
   addHall() {
     this.hallService.addHall(this.hallToAdd).subscribe(() => {
       console.log('Hall added');
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
@@ -37,9 +38,15 @@ export class HallsComponent implements OnInit {
   delete(hallId: any) {
     this.hallService.deleteHall(hallId).subscribe(() => {
       console.log('Hall deleted');
+      this.resetAndReload();
     }, error => {
       console.log(error);
     });
   }
+
+  resetAndReload() {
+    this.hallToAdd = new Hall();
+    this.getHalls();
+}
 
 }

@@ -10,8 +10,9 @@
             <h1 class="card-title"><b>{{film.title}}</b></h1>
             <h4 class="card-text"><b>Category:</b> {{film.category}} <b>Length:</b> {{film.length}} <b>Rating:</b> {{film.rating}}/5</h4>
             <p class="card-text scroll m-3">{{film.description}}</p>
-            <div [routerLink]="['/films/details']" class="btn btn-primary" routerLinkActive="active" (click)="chooseFilm(film)">Show details or buy tickets</div>
+            <div [routerLink]="['/films',film.filmId]" class="btn btn-primary" routerLinkActive="active">Show details or buy tickets</div>
           </div>
         </div>
       </div>
     </div>
+  </div>

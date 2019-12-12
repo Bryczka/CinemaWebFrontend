@@ -19,6 +19,7 @@
       <h5 class="card-title">You are logged in!</h5>
       <p class="card-text">Complete payment to get tickets</p>
       <app-paypal></app-paypal>
+      <button class="btn btn-secondary" (click)="addTickets()">Reserve without online-payment</button>
     </div>
 
     <div class="card-body" *ngIf="!loggedIn()">

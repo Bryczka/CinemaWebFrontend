@@ -5,6 +5,8 @@ import { AuthService } from '../_services/auth.service';
 import { Ticket } from '../models/Ticket';
 import { Filmshow } from '../models/Filmshow';
 import { Seat } from '../models/Seat';
+import { MatDialog } from '@angular/material';
+import { NavigateTicketsComponent } from '../_modals/navigate-tickets/navigate-tickets.component';
 
 
 declare var paypal;
@@ -24,14 +26,13 @@ export class PaypalComponent implements OnInit {
   paidFor = false;
   tickets = new Array<Ticket>();
 
-  constructor(private data: DataService, private ticketService: TicketService, private auth: AuthService) { }
+  constructor(private data: DataService, private ticketService: TicketService, private auth: AuthService, private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
     this.bill = this.message[0].length * this.cost;
     this.seats = this.message[0];
     this.filmshow = this.message[1];
-    this.addTickets();
     paypal
       .Buttons({
         createOrder: (data, actions) => {
@@ -49,8 +50,8 @@ export class PaypalComponent implements OnInit {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           this.paidFor = true;
-          console.log(order);
           this.addTickets();
+          this.openModal();
         },
         onError: err => {
           console.log(err);
@@ -73,19 +74,14 @@ export class PaypalComponent implements OnInit {
     return this.tickets;
     }
 
-  bookSeats() {
-    this.ticketService.bookSeats(this.message[0]).subscribe(() => {
-      console.log('Seats booked');
-    }, error => {
-      console.log(error);
-    });
-  }
-
   addTickets() {
     this.ticketService.addTickets(this.createTickets()).subscribe(() => {
       console.log('Tickets added');
     }, error => {
       console.log(error);
     });
+  }
+  openModal() {
+    this.matDialog.open(NavigateTicketsComponent);
   }
 }

@@ -11,7 +11,6 @@ import { Filmshow } from 'src/app/models/Filmshow';
 import { Seat } from 'src/app/models/Seat';
 import { Ticket } from '../models/Ticket';
 import { TicketService } from '../_services/ticket.service';
-import { exists } from 'fs';
 
 @Component({
   selector: 'app-films-detailed',
@@ -19,7 +18,7 @@ import { exists } from 'fs';
   styleUrls: ['./filmsDetailed.component.css']
 })
 export class FilmsDetailedComponent implements OnInit {
-  film: Film;
+  film = new Film();
   selectedFilmshowHall: Hall;
   selectedFilmshow: Filmshow;
   rowsTable: any;
@@ -31,25 +30,17 @@ export class FilmsDetailedComponent implements OnInit {
   el: HTMLElement;
   message: any;
   tickets = new Array<Ticket>();
+  filmId: string;
 
   constructor(private route: ActivatedRoute, private filmshowService: FilmshowService,
               private filmService: FilmService, private hallService: HallService, private modalService: NgbModal,
-              private data: DataService, private ticketService: TicketService) {}
+              private data: DataService) {}
 
   ngOnInit() {
-    this.data.currentMessage.subscribe(message => this.message = message);
-    this.film = this.message;
-    this.getFilmshows(this.film.filmId);
+    this.route.params.subscribe(params => this.filmId = params.filmId);
+    this.getFilm(this.filmId);
+    this.getFilmshows(this.filmId);
   }
-
-  // getFilmshowTickets(filmshowId: string) {
-  //   this.ticketService.getFilmshowTickets(filmshowId).subscribe(response => {
-  //     this.tickets = response;
-  //     console.log(this.tickets);
-  //   }, error => {
-  //     console.log('Unable to get films');
-  //   });
-  // }
 
   openModal(template: TemplateRef<any>, hallId: any, selectedFilmshow: any) {
     this.hallService.getHallOfFilmshow(hallId, selectedFilmshow.filmshowId).subscribe(response => {
@@ -61,15 +52,18 @@ export class FilmsDetailedComponent implements OnInit {
       console.log('Unable to get hall');
     });
     this.selectedFilmshow = selectedFilmshow;
-    //this.getFilmshowTickets(this.selectedFilmshow.filmshowId);
     this.modalService.open(template, {size: 'xl'});
+  }
+
+  closeModal() {
+    this.modalService.dismissAll();
   }
 
   getFilm(filmId: any) {
     this.filmService.getFilm(filmId).subscribe(response => {
       this.film = response;
     }, error => {
-      console.log('Unable to get films');
+      console.log('Unable to get film');
     });
   }
 
@@ -110,11 +104,6 @@ export class FilmsDetailedComponent implements OnInit {
   prepareTicketData() {
     const data = [this.selectedSeats, this.selectedFilmshow, this.selectedFilmshowHall];
     this.data.changeMessage(data);
+    this.modalService.dismissAll();
   }
-
-  // isSeatOccupied(seat: Seat) {
-  //   console.log(this.tickets.filter(item => item.rowNumber !== seat.row && item.seatNumber !== seat.seatNumber));
-  //   if (!this.tickets.filter(item => item.rowNumber !== seat.row && item.seatNumber !== seat.seatNumber)) { return false; }
-
-  // }
 }

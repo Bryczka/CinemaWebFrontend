@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { DataService } from '../_services/data.service';
 import { AuthService } from '../_services/auth.service';
 import { Seat } from '../models/Seat';
 import { Filmshow } from '../models/Filmshow';
 import { Hall } from '../models/Hall';
 import { Ticket } from '../models/Ticket';
+import { TicketService } from '../_services/ticket.service';
+import { MatDialog } from '@angular/material';
+import { NavigateTicketsComponent } from '../_modals/navigate-tickets/navigate-tickets.component';
 
 @Component({
   selector: 'app-tickets',
@@ -18,8 +21,10 @@ seats = new Array<Seat>();
 filmshow = new Filmshow();
 hall = new Hall();
 userName: string;
+tickets = new Array<Ticket>();
 
-  constructor(private data: DataService, private auth: AuthService) { }
+  constructor(private data: DataService, private auth: AuthService, private ticketService: TicketService,
+              private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
@@ -32,5 +37,31 @@ userName: string;
   loggedIn() {
     const token = localStorage.getItem('token');
     return !!token;
+  }
+
+  createTickets() {
+    for (let i = 0; i < this.seats.length; i++) {
+      const ticket = new Ticket();
+      ticket.seatNumber = this.seats[i].seatNumber;
+      ticket.rowNumber = this.seats[i].row;
+      ticket.isPaid = false;
+      ticket.userId = this.auth.getUserId();
+      ticket.filmshowId = this.filmshow.filmshowId;
+      this.tickets.push(ticket);
+      }
+    return this.tickets;
+    }
+
+  addTickets() {
+    this.ticketService.addTickets(this.createTickets()).subscribe(() => {
+      console.log('Tickets added');
+      this.openModal();
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  openModal() {
+    this.matDialog.open(NavigateTicketsComponent);
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../_services/film.service';
 import { Film } from '../models/Film';
-import { DataService } from '../_services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +9,11 @@ import { DataService } from '../_services/data.service';
 })
 export class HomeComponent implements OnInit {
   films: Array<Film>;
-  message: any;
-  selectedFilm = new Film();
 
-  constructor(private filmService: FilmService, private data: DataService) {}
+  constructor(private filmService: FilmService) {}
 
   ngOnInit() {
     this.getFilms();
-    this.data.currentMessage.subscribe(message => this.message = message);
   }
 
   getFilms() {
@@ -27,10 +23,5 @@ export class HomeComponent implements OnInit {
     }, error => {
       console.log('Unable to get films');
     });
-  }
-
-  chooseFilm(selectedFilm: Film) {
-    const data = selectedFilm;
-    this.data.changeMessage(data);
   }
 }
