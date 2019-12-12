@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HallService } from '../_services/hall.service';
 import { NgModel, NgForm } from '@angular/forms';
+import { Hall } from '../models/Hall';
 
 @Component({
   selector: 'app-halls',
@@ -8,8 +9,8 @@ import { NgModel, NgForm } from '@angular/forms';
   styleUrls: ['./halls.component.css']
 })
 export class HallsComponent implements OnInit {
-  halls: any;
-  hallToAdd: any = {};
+  halls = new Array<Hall>();
+  hallToAdd = new Hall();
 
   constructor(private hallService: HallService) { }
 

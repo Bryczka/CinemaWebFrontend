@@ -29,4 +29,8 @@ export class AuthService {
   getUserName() {
     return this.helper.decodeToken(localStorage.getItem('token')).unique_name;
   }
+
+  getUserId() {
+    return this.helper.decodeToken(localStorage.getItem('token')).nameid;
+  }
 }

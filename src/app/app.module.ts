@@ -19,11 +19,11 @@ import { FilmshowsComponent } from './filmshows/filmshows.component';
 import { FilmsComponent } from './films/films.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HallsComponent } from './halls/halls.component';
-import { FilmsDetailedComponent } from './films/filmsDetailed/filmsDetailed.component';
+import { FilmsDetailedComponent } from './filmsDetailed/filmsDetailed.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { LoginComponent } from './login/login.component';
 import { PaypalComponent } from './paypal/paypal.component';
-
+import { UserTicketsComponent } from './user-tickets/user-tickets.component';
 
 @NgModule({
    declarations: [
@@ -37,7 +37,8 @@ import { PaypalComponent } from './paypal/paypal.component';
       FilmsDetailedComponent,
       TicketsComponent,
       LoginComponent,
-      PaypalComponent
+      PaypalComponent,
+      UserTicketsComponent
    ],
    imports: [
       BrowserModule,

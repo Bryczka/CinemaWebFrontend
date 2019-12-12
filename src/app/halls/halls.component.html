@@ -3,17 +3,17 @@
         <div class="form-group col-md-3 ml-4">
             <label for="rows">Hall name</label>
             <input class="form-control" type="text" id="hallName" placeholder="Hall name" required name="hallName"
-                [(ngModel)]="hallToAdd.Name" />
+                [(ngModel)]="hallToAdd.name" />
         </div>
         <div class="form-group col-md-3 ml-4">
             <label for="rows">Rows number</label>
             <input class="form-control" type="number" id="rows" placeholder="Rows number" required name="rows"
-                [(ngModel)]="hallToAdd.RowsNumber" />
+                [(ngModel)]="hallToAdd.rowsNumber" />
         </div>
         <div class="form-group col-md-3 mr-3">
             <label for="seats">Seats in row</label>
             <input class="form-control" type="number" id="seats" placeholder="Number of seats" required name="seats"
-                [(ngModel)]="hallToAdd.SeatsInRowNumber" />
+                [(ngModel)]="hallToAdd.seatsInRowNumber" />
         </div>
         <button type="button" class="btn btn-secondary btn-lg col-3 m-4" (click)="addHall()">Add new hall</button>
     </div>

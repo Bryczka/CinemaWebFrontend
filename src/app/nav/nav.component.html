@@ -1,34 +1,23 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Cinema application</a>
+<nav class="navbar navbar-dark" style="background-color: rgb(0, 132, 255);">
+      <a class="navbar-brand" href="#"><b>Cinema application</b></a>
 
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/home']">Currently playing</a>
-        </li>
-      </ul>
-    
       <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline">
-        <input class="form-control mr-sm-2" type="text" name ="login" 
-        placeholder="Login" required [(ngModel)]="userLoginData.login">
-        <input class="form-control mr-sm-2" type="password" name="password" 
-        placeholder="Password" required [(ngModel)]="userLoginData.password">
-        <button [disabled]="!loginForm.valid" name ="login" class="btn btn-success my-2 my-sm-0" (click)="login()">Login</button>
-        <button class="btn btn-success ml-2" name ="register" [routerLink]="['/register']">Register</button>
+        <input class="form-control mr-sm-2" type="text" name ="login" placeholder="Login" required [(ngModel)]="userLoginData.login">
+        <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required [(ngModel)]="userLoginData.password">
+        <button [disabled]="!loginForm.valid" name ="login" class="btn btn-light my-2 my-sm-0" (click)="login()">Login</button>
+        <button class="btn btn-light ml-2" name ="register" [routerLink]="['/register']">Register</button>
       </form>
       
       <div *ngIf="loggedIn() && !isEmployee()" class="dropdown" dropdown>
-          <a class="dropdown-toggle text-light" dropdownToggle>
-            User account
-          </a>
+          <a class="dropdown-toggle text-light" dropdownToggle>User account</a>
           <div class="dropdown-menu mt-3 dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" [routerLink]="['/user/tickets']">Show tickets</a>
             <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
           </div>
         </div>
 
       <div *ngIf="loggedIn() && isEmployee()" class="dropdown" dropdown>
-          <a class="dropdown-toggle text-light" dropdownToggle>
-            Employee account
-          </a>
+          <a class="dropdown-toggle text-light" dropdownToggle>Employee account</a>
           <div class="dropdown-menu mt-3 dropdown-menu-right" *dropdownMenu routerLinkActive="active">
             <a class="dropdown-item" [routerLink]="['/films']">Edit films</a>
             <a class="dropdown-item" [routerLink]="['/filmshows']">Edit filmshows</a>

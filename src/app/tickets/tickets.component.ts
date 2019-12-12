@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../_services/data.service';
 import { AuthService } from '../_services/auth.service';
+import { Seat } from '../models/Seat';
+import { Filmshow } from '../models/Filmshow';
+import { Hall } from '../models/Hall';
+import { Ticket } from '../models/Ticket';
 
 @Component({
   selector: 'app-tickets',
@@ -8,11 +12,11 @@ import { AuthService } from '../_services/auth.service';
   styleUrls: ['./tickets.component.css']
 })
 export class TicketsComponent implements OnInit {
-ticketListToAdd: any[] = [{}];
+ticketListToAdd: Array<Ticket>;
 message: any[];
-seats: any[];
-filmshow: any;
-hall: any;
+seats = new Array<Seat>();
+filmshow = new Filmshow();
+hall = new Hall();
 userName: string;
 
   constructor(private data: DataService, private auth: AuthService) { }

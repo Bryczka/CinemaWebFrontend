@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Hall } from '../models/Hall';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +11,24 @@ export class HallService {
 
   constructor(private http: HttpClient) { }
 
-  getHalls() {
-    return this.http.get(this.baseUrl);
+  getHalls(): Observable<Array<Hall>> {
+    return this.http.get<Array<Hall>>(this.baseUrl);
   }
 
-  addHall(hallData: any) {
-    return this.http.post(this.baseUrl, hallData);
+  addHall(hall: Hall) {
+    return this.http.post(this.baseUrl, hall);
   }
 
-  deleteHall(hallId: any) {
+  deleteHall(hallId: string) {
     return this.http.delete(this.baseUrl + 'hall/' + hallId);
   }
 
-  getHall(hallId: any) {
-    return this.http.get(this.baseUrl + hallId);
+  getHall(hallId: string): Observable<Hall> {
+    return this.http.get<Hall>(this.baseUrl + hallId);
+  }
+
+  getHallOfFilmshow(hallId: string, filmshowId: string): Observable<Hall> {
+    return this.http.get<Hall>(this.baseUrl + hallId + '/' + filmshowId);
   }
 
 }

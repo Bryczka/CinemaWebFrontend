@@ -1,0 +1,16 @@
+<div class="row m-2 text-center">
+      <div class="row">
+        <div class="card m-3" style="width: 14vw; height: 40vh;" *ngFor="let ticket of ticketList">
+          <div class="card-body">
+            <h5 class="card-title">{{ticket.filmTitle}}</h5>
+            <p class="card-text">Hall: {{ticket.hallName}}</p>
+            <p class="card-text">Date: {{ ticket.filmshowTime | date:'yyyy-MM-dd'}} Time: {{ ticket.filmshowTime | date:'HH:mm'}}</p>
+            <p class="card-text">Row: {{ticket.rowNumber}} Seat: {{ticket.seatNumber}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item"></li>
+              <li class="list-group-item">Ticket code: <p>{{ticket.ticketId}}</p> </li>
+              
+            </ul>
+        </div>
+    </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FilmService } from '../_services/film.service';
+import { Film } from '../models/Film';
 
 @Component({
   selector: 'app-films',
@@ -7,8 +8,8 @@ import { FilmService } from '../_services/film.service';
   styleUrls: ['./films.component.css']
 })
 export class FilmsComponent implements OnInit {
-  films: any;
-  filmToAdd: any = {};
+  films = new Array<Film>();
+  filmToAdd = new Film();
   editMode: boolean;
   url: any = '../assets/images/no-image.jpg';
 
@@ -28,7 +29,7 @@ export class FilmsComponent implements OnInit {
   }
 
   addFilm() {
-    this.filmToAdd.ImageBase64 = this.url;
+    this.filmToAdd.imageBase64 = this.url;
     this.filmService.addFilm(this.filmToAdd).subscribe(() => {
       console.log('Film added');
       this.getFilms();
@@ -40,12 +41,11 @@ export class FilmsComponent implements OnInit {
   prepareEdit(filmId: any, filmTitle: any, filmCategory: any, filmLength: any, filmRating: any, filmDescription: any, filmImage: any) {
     this.editMode = true;
     this.filmToAdd.filmId = filmId;
-    this.filmToAdd.Title = filmTitle;
-    this.filmToAdd.Category = filmCategory;
-    this.filmToAdd.Length = filmLength;
-    this.filmToAdd.Rating = filmRating;
-    this.filmToAdd.Description = filmDescription;
-    console.log('data:image/png;base64,' + filmImage);
+    this.filmToAdd.title = filmTitle;
+    this.filmToAdd.category = filmCategory;
+    this.filmToAdd.length = filmLength;
+    this.filmToAdd.rating = filmRating;
+    this.filmToAdd.description = filmDescription;
     this.url = 'data:image/png;base64,' + filmImage;
   }
 

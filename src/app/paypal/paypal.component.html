@@ -1,10 +1,8 @@
 <div *ngIf="!paidFor">
-<h1>Pay for tickets - ${{product.price}} OBO</h1>
-<p>{{product.description}}</p>
-</div>
+    <h1>All cost: {{ bill }} PLN</h1>
+  </div>
 
-<div *ngIf="paidFor">
-  <h1>Payment completed!!</h1>
-</div>
-
-<div #paypal></div>
+  <div *ngIf=paidFor>
+    <h1>Complete!!</h1>
+  </div>
+  <div [hidden]="paidFor" #paypal></div>

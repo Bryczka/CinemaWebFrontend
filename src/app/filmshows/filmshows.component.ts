@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FilmshowService } from '../_services/filmshow.service';
 import { HallService } from '../_services/hall.service';
 import { FilmService } from '../_services/film.service';
+import { Filmshow } from '../models/Filmshow';
+import { Film } from '../models/Film';
+import { Hall } from '../models/Hall';
 
 @Component({
   selector: 'app-filmshows',
@@ -9,13 +12,13 @@ import { FilmService } from '../_services/film.service';
   styleUrls: ['./filmshows.component.css']
 })
 export class FilmshowsComponent implements OnInit {
-  filmshows: any;
-  films: any;
-  halls: any;
+  filmshows = new Array<Filmshow>();
+  films = new Array<Film>();
+  halls = new Array<Hall>();
   time: any;
   date: any;
   editMode: boolean;
-  filmshowToAdd: any = {};
+  filmshowToAdd = new Filmshow();
 
   constructor(private filmshowService: FilmshowService, private filmService: FilmService, private hallService: HallService) { }
 
@@ -54,8 +57,7 @@ export class FilmshowsComponent implements OnInit {
     const newDate = new Date();
     newDate.setUTCHours(this.time.hour, this.time.minute);
     newDate.setUTCFullYear(this.date.year, this.date.month - 1, this.date.day);
-    console.log(newDate);
-    this.filmshowToAdd.filmshowDate = newDate;
+    this.filmshowToAdd.filmshowTime = newDate;
 
     this.filmshowService.addFilmshow(this.filmshowToAdd).subscribe(() => {
       console.log('Filmshow added');
@@ -72,7 +74,7 @@ export class FilmshowsComponent implements OnInit {
     });
   }
 
-  prepareEdit(filmshowId: any, filmshowDate: any, filmId: any, hallId: any) {
+  prepareEdit(filmshowId: any, filmshowDate: any, filmId: string, hallId: string) {
     const filmshowDatetmp = new Date(filmshowDate);
     this.editMode = true;
     this.filmshowToAdd.filmshowId = filmshowId;
@@ -88,11 +90,11 @@ export class FilmshowsComponent implements OnInit {
     console.log(this.date);
     newDate.setUTCHours(this.time.hour, this.time.minute);
     newDate.setUTCFullYear(this.date.year, this.date.month - 1, this.date.day);
-    this.filmshowToAdd.filmshowDate = newDate;
+    this.filmshowToAdd.filmshowTime = newDate;
 
     this.filmshowService.editFilmshow(this.filmshowToAdd).subscribe(() => {
       console.log('Filmshow edited');
-      //this.getFilms(); TO REFRESH
+    // this.getFilms(); TO REFRESH
     }, error => {
       console.log(error);
     });

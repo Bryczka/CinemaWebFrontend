@@ -2,19 +2,19 @@
   <div class="form-row mt-5">
     <div class="form-group col-md-4 ml-4">
       <label for="title">Title</label>
-      <input class="form-control" type="text" id="title" placeholder="Title" required name="title" [(ngModel)]="filmToAdd.Title" />
+      <input class="form-control" type="text" id="title" placeholder="Title" required name="title" [(ngModel)]="filmToAdd.title" />
     </div>
     <div class="form-group col-md-4">
       <label for="category">Category</label>
-      <input class="form-control" type="text" id="category" placeholder="Category" required name="category" [(ngModel)]="filmToAdd.Category" />
+      <input class="form-control" type="text" id="category" placeholder="Category" required name="category" [(ngModel)]="filmToAdd.category" />
     </div>
     <div class="form-group col-md-2">
       <label for="length">Length</label>
-      <input class="form-control" type="text" id="length" placeholder="Length" required name="length" [(ngModel)]="filmToAdd.Length" />
+      <input class="form-control" type="text" id="length" placeholder="Length" required name="length" [(ngModel)]="filmToAdd.length" />
     </div>
     <div class="form-group col-md-1 mr-1">
       <label for="rating">Rating (max. 5)</label>
-      <select class="custom-select" id="rating" type="number" required name="rating" [(ngModel)]="filmToAdd.Rating">
+      <select class="custom-select" id="rating" type="number" required name="rating" [(ngModel)]="filmToAdd.rating">
         <option [ngValue]="1">1</option>
         <option [ngValue]="2">2</option>
         <option [ngValue]="3">3</option>
@@ -28,7 +28,7 @@
     <div class="form-group ml-4 mr-5 col-md-6">
       <label for="description">Description</label>
       <textarea class="form-control" id="description" rows="15" type="text" required name="description"
-        [(ngModel)]="filmToAdd.Description"></textarea>
+        [(ngModel)]="filmToAdd.description"></textarea>
     </div>
     <div class="form-group ml-5 mr-4 mt-4 col-md-3" >
       <div class="card">

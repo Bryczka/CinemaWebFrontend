@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Filmshow } from '../models/Filmshow';
 
 @Injectable({
   providedIn: 'root'
@@ -10,24 +12,24 @@ export class FilmshowService {
   constructor(private http: HttpClient) { }
 
 
-  getFilmshows() {
-    return this.http.get(this.baseUrl);
+  getFilmshows(): Observable<Array<Filmshow>> {
+    return this.http.get<Array<Filmshow>>(this.baseUrl);
   }
 
-  addFilmshow(filmshowData: any) {
-    return this.http.post(this.baseUrl, filmshowData);
+  addFilmshow(filmshow: Filmshow) {
+    return this.http.post(this.baseUrl, filmshow);
   }
 
-  deleteFilmshow(filmshowId: any) {
+  deleteFilmshow(filmshowId: string) {
     return this.http.delete(this.baseUrl + 'filmshow/' + filmshowId);
   }
 
-  editFilmshow(filmshowData: any) {
-    return this.http.put(this.baseUrl + 'filmshow', filmshowData);
+  editFilmshow(filmshow: Filmshow) {
+    return this.http.put(this.baseUrl + 'filmshow', filmshow);
 
   }
 
-  getFilmshowsOfFilm(filmId: any) {
-    return this.http.get(this.baseUrl + 'filmshow/film/' + filmId);
+  getFilmshowsOfFilm(filmId: string): Observable<Array<Filmshow>> {
+    return this.http.get<Array<Filmshow>>(this.baseUrl + 'filmshow/film/' + filmId);
   }
 }

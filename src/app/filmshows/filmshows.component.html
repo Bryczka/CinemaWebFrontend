@@ -39,13 +39,13 @@
             <tr *ngFor="let filmshow of filmshows; index as i">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ filmshow.filmshowId }}</td>
-                <td>{{ filmshow.filmshowDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                <td>{{ filmshow.filmshowTime | date:'yyyy-MM-dd HH:mm'}}</td>
                 <td>{{ filmshow.filmTitle }}</td>
                 <td>{{ filmshow.hallName }}</td>
                 <td>
                     <div class="btn-group" role="group">
                             <button type="button" class="btn btn-secondary"
-                            (click)="prepareEdit(filmshow.filmshowId, filmshow.filmshowDate, filmshow.filmId, filmshow.hallId)">Edit</button>
+                            (click)="prepareEdit(filmshow.filmshowId, filmshow.filmshowTime, filmshow.filmId, filmshow.hallId)">Edit</button>
                         <button type="button" class="btn btn-secondary"
                             (click)="delete(filmshow.filmshowId)">Delete</button>
                     </div>

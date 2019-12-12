@@ -2,10 +2,10 @@
   <div class="col-4">
     <img src="{{'data:image/png;base64,'+film.imageBase64}}">
   </div>
-  <div class="col-6">
+  <div class="col-8">
     <h1>{{film.title}}</h1>
     <h4><b>Category:</b> {{film.category}} <b>Length:</b> {{film.length}} <b>Rating:</b> {{film.rating}}/5</h4>
-    <p class="mt-5 mr-5">{{film.description}}</p>
+    <p class="mt-5 mr-5  scroll">{{film.description}}</p>
   </div>
 </div>
 
@@ -18,7 +18,7 @@
       <form class="m-3 text-center col-6">
         <div class="row" *ngFor="let item of rowsTable; index as i">
           <div *ngFor="let seat of seats; index as j">
-            <button type="button" class="btn btn-secondary" id="{{seat.seatId}}" *ngIf="seat.row == i+1"
+            <button type="button" class="btn btn-secondary" id="{{seat.seatId}}" *ngIf="seat.row == i+1" [disabled]="seat.isOccupied"
               (click)="clickSeat(seat)">{{seat.seatNumber}}</button>
           </div>
         </div>
@@ -47,8 +47,8 @@
           <div class="lead" *ngFor="let filmshow of filmshows; index as j">
             <div class="form-group">
               <button class="btn btn-outline-primary btn-lg mr-4 "
-                *ngIf="compareDates(getCurrentDate(i), filmshow.filmshowDate)"
-                (click)="openModal(template, filmshow.hallId, filmshow)">{{ filmshow.filmshowDate | date:'HH:mm'}}</button>
+                *ngIf="compareDates(getCurrentDate(i), filmshow.filmshowTime)"
+                (click)="openModal(template, filmshow.hallId, filmshow)">{{ filmshow.filmshowTime | date:'HH:mm'}}</button>
             </div>
           </div>
         </div>

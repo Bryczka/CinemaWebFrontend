@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Film } from '../models/Film';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,24 +11,24 @@ export class FilmService {
 
   constructor(private http: HttpClient) { }
 
-  getFilms() {
-    return this.http.get(this.baseUrl);
+  getFilms(): Observable<Array<Film>> {
+    return this.http.get<Array<Film>>(this.baseUrl);
   }
 
-  addFilm(filmData: any) {
-    return this.http.post(this.baseUrl, filmData);
+  addFilm(film: Film) {
+    return this.http.post(this.baseUrl, film);
   }
 
-  deleteFilm(filmId: any) {
+  deleteFilm(filmId: string) {
     return this.http.delete(this.baseUrl + 'film/' + filmId);
   }
 
-  editFilm(filmData: any) {
-    return this.http.put(this.baseUrl + 'film', filmData);
+  editFilm(film: Film) {
+    return this.http.put(this.baseUrl + 'film', film);
 
   }
 
-  getFilm(filmId: any) {
-    return this.http.get(this.baseUrl + 'film/' + filmId);
+  getFilm(filmId: string): Observable<Film> {
+    return this.http.get<Film>(this.baseUrl + 'film/' + filmId);
   }
 }

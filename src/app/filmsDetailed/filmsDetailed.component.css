@@ -1,0 +1,8 @@
+.slider {
+    height: 20vh;
+}
+.scroll {
+    max-height: 35vh;
+    overflow-y: auto;
+}
+  
