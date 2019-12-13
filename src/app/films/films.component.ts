@@ -28,6 +28,7 @@ export class FilmsComponent implements OnInit {
   }
 
   addFilm() {
+    if(this.checkValidation()) {} else {
     this.filmToAdd.imageBase64 = this.url;
     this.filmService.addFilm(this.filmToAdd).subscribe(() => {
       console.log('Film added');
@@ -35,6 +36,7 @@ export class FilmsComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
   }
 
   prepareEdit(filmId: any, filmTitle: any, filmCategory: any, filmLength: any, filmRating: any, filmDescription: any, filmImage: any) {
@@ -81,5 +83,17 @@ export class FilmsComponent implements OnInit {
       this.url = '../assets/images/no-image.jpg';
       this.getFilms();
       this.editMode = false;
+  }
+
+  checkValidation() {
+    if (
+    this.filmToAdd.title === undefined &&
+    this.filmToAdd.category === undefined &&
+    this.filmToAdd.length === undefined &&
+    this.filmToAdd.rating === undefined &&
+    this.filmToAdd.description === undefined &&
+    this.url === '../assets/images/no-image.jpg'
+    ) {return true; }
+    return false;
   }
 }

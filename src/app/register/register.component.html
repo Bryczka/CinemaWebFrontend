@@ -8,11 +8,13 @@
               <input matInput placeholder="User name" [formControl]="userNameFormControl">
               <mat-error *ngIf="userNameFormControl.hasError('required')"> User name is <strong>required</strong></mat-error>
               <mat-error *ngIf="userNameFormControl.hasError('minlength')">User name is <strong>too short</strong></mat-error>
+              <mat-error *ngIf="userNameFormControl.hasError('maxlength')">User name is <strong>too long</strong></mat-error>
             </mat-form-field>
       
             <mat-form-field class="example-full-width">
               <input type="password" matInput placeholder="Enter your password" [formControl]="passwordFormControl">
               <mat-error *ngIf="passwordFormControl.hasError('minlength')">Password is <strong>too short</strong></mat-error>
+              <mat-error *ngIf="passwordFormControl.hasError('maxlength')">Password is <strong>too long</strong></mat-error>
               <mat-error *ngIf="userNameFormControl.hasError('required')">Password is <strong>required</strong></mat-error>
             </mat-form-field>
       

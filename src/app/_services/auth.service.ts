@@ -33,4 +33,17 @@ export class AuthService {
   getUserId() {
     return this.helper.decodeToken(localStorage.getItem('token')).nameid;
   }
+
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
+  isEmployee() {
+    const role = localStorage.getItem('role');
+    if (role === 'employee') {
+      return true;
+    }
+    return false;
+  }
 }

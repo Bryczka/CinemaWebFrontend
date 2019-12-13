@@ -26,6 +26,7 @@ import { PaypalComponent } from './paypal/paypal.component';
 import { UserTicketsComponent } from './user-tickets/user-tickets.component';
 import { MatDialogModule, MatInputModule } from '@angular/material';
 import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-tickets.component';
+import { ErrorInterceptorProvider } from './_interceptors/error.interceptor';
 
 @NgModule({
    declarations: [
@@ -59,7 +60,8 @@ import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-ti
    ],
    providers: [
       AuthService,
-      FilmService
+      FilmService,
+      ErrorInterceptorProvider
    ],
    bootstrap: [
       AppComponent

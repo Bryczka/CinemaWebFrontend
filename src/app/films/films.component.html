@@ -1,8 +1,8 @@
-<form #addform="ngForm" (ngSubmit)="addFilm()">
+<form #addform="ngForm">
   <div class="form-row mt-5">
     <div class="form-group col-md-4 ml-4">
       <label for="title">Title</label>
-      <input class="form-control" type="text" id="title" placeholder="Title" required name="title" [(ngModel)]="filmToAdd.title" />
+      <input class="form-control" type="text" placeholder="Title" required name="title" [(ngModel)]="filmToAdd.title" />
     </div>
     <div class="form-group col-md-4">
       <label for="category">Category</label>
@@ -10,7 +10,7 @@
     </div>
     <div class="form-group col-md-2">
       <label for="length">Length</label>
-      <input class="form-control" type="text" id="length" placeholder="Length" required name="length" [(ngModel)]="filmToAdd.length" />
+      <input class="form-control" type="number" id="length" placeholder="Length" required name="length" [(ngModel)]="filmToAdd.length" />
     </div>
     <div class="form-group col-md-1 mr-1">
       <label for="rating">Rating (max. 5)</label>

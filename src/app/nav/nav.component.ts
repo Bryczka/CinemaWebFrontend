@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { RegisterComponent } from '../register/register.component';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,7 @@ import { RegisterComponent } from '../register/register.component';
 export class NavComponent implements OnInit {
   userLoginData: any = {};
   dialogConfig: MatDialogConfig;
-  constructor(private authService: AuthService, private matDialog: MatDialog) { }
+  constructor(private authService: AuthService, private matDialog: MatDialog, private alertify: AlertifyService) { }
 
   ngOnInit() {
 
@@ -20,8 +21,10 @@ export class NavComponent implements OnInit {
   login() {
     console.log(this.authService.login(this.userLoginData));
     this.authService.login(this.userLoginData).subscribe(next => {
+      this.alertify.success('Logged in successfully');
       console.log('Logged in successfully');
     }, error => {
+      this.alertify.error(error);
       console.log('Failed to login');
     });
   }
@@ -33,16 +36,11 @@ export class NavComponent implements OnInit {
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
 
   isEmployee() {
-    const role = localStorage.getItem('role');
-    if (role === 'employee') {
-      return true;
-    }
-    return false;
+    return this.authService.isEmployee();
   }
 
   openModal() {

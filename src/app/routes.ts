@@ -7,15 +7,17 @@ import { HallsComponent } from './halls/halls.component';
 import { FilmsDetailedComponent } from './filmsDetailed/filmsDetailed.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { UserTicketsComponent } from './user-tickets/user-tickets.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { RoleGuard } from './_guards/role.guard';
 
 export const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'films', component: FilmsComponent},
-    {path: 'filmshows', component: FilmshowsComponent},
-    {path: 'halls', component: HallsComponent},
+    {path: 'films', component: FilmsComponent, canActivate: [RoleGuard]},
+    {path: 'filmshows', component: FilmshowsComponent, canActivate: [RoleGuard]},
+    {path: 'halls', component: HallsComponent, canActivate: [RoleGuard]},
     {path: 'tickets', component: TicketsComponent},
     {path: 'films/:filmId', component: FilmsDetailedComponent},
-    {path: 'user/tickets', component: UserTicketsComponent},
+    {path: 'user/tickets', component: UserTicketsComponent, canActivate: [AuthGuard]},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];
