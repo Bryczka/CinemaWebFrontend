@@ -8,7 +8,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
   baseUrl = 'https://localhost:5001/Users/';
-  helper = new JwtHelperService();
+  jwtHelper = new JwtHelperService();
+
   constructor(private http: HttpClient) {}
 
   login(userLoginData: any) {
@@ -16,7 +17,6 @@ export class AuthService {
       map((response: any) => {
         if (response) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('role', this.helper.decodeToken(response.token).role);
         }
       })
     );
@@ -27,23 +27,32 @@ export class AuthService {
   }
 
   getUserName() {
-    return this.helper.decodeToken(localStorage.getItem('token')).unique_name;
+    return this.jwtHelper.decodeToken(localStorage.getItem('token')).unique_name;
   }
 
   getUserId() {
-    return this.helper.decodeToken(localStorage.getItem('token')).nameid;
+    return this.jwtHelper.decodeToken(localStorage.getItem('token')).nameid;
+  }
+
+  getUserRole() {
+    return this.jwtHelper.decodeToken(localStorage.getItem('token')).role;
   }
 
   loggedIn() {
     const token = localStorage.getItem('token');
-    return !!token;
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   isEmployee() {
-    const role = localStorage.getItem('role');
+    const role = this.jwtHelper.decodeToken(localStorage.getItem('token')).role;
     if (role === 'employee') {
       return true;
     }
     return false;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    console.log('Logged out');
   }
 }

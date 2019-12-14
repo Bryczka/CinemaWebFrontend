@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../_services/film.service';
 import { Film } from '../models/Film';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-films',
@@ -13,7 +14,7 @@ export class FilmsComponent implements OnInit {
   editMode: boolean;
   url: any = '../assets/images/no-image.jpg';
 
-  constructor(private filmService: FilmService) { }
+  constructor(private filmService: FilmService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.getFilms();
@@ -23,7 +24,7 @@ export class FilmsComponent implements OnInit {
     this.filmService.getFilms().subscribe(response => {
       this.films = response;
     }, error => {
-      console.log('Unable to get films');
+      this.alertify.error('Unable to get films - some errors occured' + '\n' + error);
     });
   }
 
@@ -31,10 +32,10 @@ export class FilmsComponent implements OnInit {
     if(this.checkValidation()) {} else {
     this.filmToAdd.imageBase64 = this.url;
     this.filmService.addFilm(this.filmToAdd).subscribe(() => {
-      console.log('Film added');
+      this.alertify.success('Film added to databse');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not add film' + '\n' + error);
     });
   }
   }
@@ -52,19 +53,19 @@ export class FilmsComponent implements OnInit {
 
   edit() {
     this.filmService.editFilm(this.filmToAdd).subscribe(() => {
-      console.log('Film edited');
+      this.alertify.success('Film edited');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not edit film' + '\n' + error);
     });
   }
 
   delete(filmId: any) {
     this.filmService.deleteFilm(filmId).subscribe(() => {
-      console.log('Film deleted');
+      this.alertify.success('Film deleted');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not delete film' + '\n' + error);
     });
   }
 

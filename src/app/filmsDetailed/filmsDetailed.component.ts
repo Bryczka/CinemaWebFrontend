@@ -11,6 +11,7 @@ import { Filmshow } from 'src/app/models/Filmshow';
 import { Seat } from 'src/app/models/Seat';
 import { Ticket } from '../models/Ticket';
 import { TicketService } from '../_services/ticket.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-films-detailed',
@@ -34,7 +35,7 @@ export class FilmsDetailedComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private filmshowService: FilmshowService,
               private filmService: FilmService, private hallService: HallService, private modalService: NgbModal,
-              private data: DataService) {}
+              private data: DataService, private alertify: AlertifyService ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => this.filmId = params.filmId);
@@ -49,7 +50,7 @@ export class FilmsDetailedComponent implements OnInit {
       this.seatsNumber = Array(this.selectedFilmshowHall.seatsInRowNumber);
       this.seats = this.selectedFilmshowHall.seats;
     }, error => {
-      console.log('Unable to get hall');
+      this.alertify.error('Can not get halls' + '+\n' + error);
     });
     this.selectedFilmshow = selectedFilmshow;
     this.modalService.open(template, {size: 'xl'});
@@ -62,6 +63,7 @@ export class FilmsDetailedComponent implements OnInit {
   getFilm(filmId: any) {
     this.filmService.getFilm(filmId).subscribe(response => {
       this.film = response;
+      this.alertify.success('Film loaded');
     }, error => {
       console.log('Unable to get film');
     });

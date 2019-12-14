@@ -23,7 +23,7 @@ export class UserTicketsComponent implements OnInit {
       this.ticketList = response;
       console.log(this.ticketList);
     }, error => {
-      console.log('Unable to get films');
+      console.log('Unable to get user tickets');
     });
   }
 

@@ -22,6 +22,7 @@ filmshow = new Filmshow();
 hall = new Hall();
 userName: string;
 tickets = new Array<Ticket>();
+public paymentCompleted: boolean;
 
   constructor(private data: DataService, private auth: AuthService, private ticketService: TicketService,
               private matDialog: MatDialog) { }
@@ -35,8 +36,7 @@ tickets = new Array<Ticket>();
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+   return this.auth.loggedIn();
   }
 
   createTickets() {
@@ -56,6 +56,7 @@ tickets = new Array<Ticket>();
     this.ticketService.addTickets(this.createTickets()).subscribe(() => {
       console.log('Tickets added');
       this.openModal();
+      this.paymentCompleted = true;
     }, error => {
       console.log(error);
     });

@@ -7,6 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -27,6 +28,11 @@ import { UserTicketsComponent } from './user-tickets/user-tickets.component';
 import { MatDialogModule, MatInputModule } from '@angular/material';
 import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-tickets.component';
 import { ErrorInterceptorProvider } from './_interceptors/error.interceptor';
+
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -56,7 +62,14 @@ import { ErrorInterceptorProvider } from './_interceptors/error.interceptor';
       ModalModule.forRoot(),
       MatDialogModule,
       MatInputModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:5001'],
+            blacklistedRoutes: ['localhost:5001/users']
+         }
+      })
    ],
    providers: [
       AuthService,

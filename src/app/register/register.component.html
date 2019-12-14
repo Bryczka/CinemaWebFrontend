@@ -51,8 +51,8 @@
       
         <div class="form-group text-center">
             <mat-error *ngIf="passwordFormControl.value !== confirmationFormControl.value">*Passwords do not <strong>match</strong></mat-error>
-            <button class="btn btn-success" (click)="register()" [disabled]="!checkValidation()" [mat-dialog-close]>Register</button>
-            <button class="btn btn-default" type="button" [mat-dialog-close]>Cancel</button>
+            <button class="btn btn-success" (click)="register()" [disabled]="!checkValidation()">Register</button>
+            <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
         </div>
       </div>
 

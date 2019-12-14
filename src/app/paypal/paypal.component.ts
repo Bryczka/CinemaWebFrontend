@@ -7,6 +7,7 @@ import { Filmshow } from '../models/Filmshow';
 import { Seat } from '../models/Seat';
 import { MatDialog } from '@angular/material';
 import { NavigateTicketsComponent } from '../_modals/navigate-tickets/navigate-tickets.component';
+import { TicketsComponent } from '../tickets/tickets.component';
 
 
 declare var paypal;
@@ -26,7 +27,8 @@ export class PaypalComponent implements OnInit {
   paidFor = false;
   tickets = new Array<Ticket>();
 
-  constructor(private data: DataService, private ticketService: TicketService, private auth: AuthService, private matDialog: MatDialog) { }
+  constructor(private data: DataService, private ticketsComponent: TicketsComponent,
+              private ticketService: TicketService, private auth: AuthService, private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
@@ -52,6 +54,7 @@ export class PaypalComponent implements OnInit {
           this.paidFor = true;
           this.addTickets();
           this.openModal();
+          this.ticketsComponent.paymentCompleted = true;
         },
         onError: err => {
           console.log(err);
