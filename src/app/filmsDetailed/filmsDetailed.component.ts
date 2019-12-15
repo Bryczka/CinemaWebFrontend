@@ -50,7 +50,7 @@ export class FilmsDetailedComponent implements OnInit {
       this.seatsNumber = Array(this.selectedFilmshowHall.seatsInRowNumber);
       this.seats = this.selectedFilmshowHall.seats;
     }, error => {
-      this.alertify.error('Can not get halls' + '+\n' + error);
+      this.alertify.error('Can not get halls');
     });
     this.selectedFilmshow = selectedFilmshow;
     this.modalService.open(template, {size: 'xl'});
@@ -63,7 +63,6 @@ export class FilmsDetailedComponent implements OnInit {
   getFilm(filmId: any) {
     this.filmService.getFilm(filmId).subscribe(response => {
       this.film = response;
-      this.alertify.success('Film loaded');
     }, error => {
       console.log('Unable to get film');
     });

@@ -5,6 +5,7 @@ import { FilmService } from '../_services/film.service';
 import { Filmshow } from '../models/Filmshow';
 import { Film } from '../models/Film';
 import { Hall } from '../models/Hall';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-filmshows',
@@ -20,7 +21,8 @@ export class FilmshowsComponent implements OnInit {
   editMode: boolean;
   filmshowToAdd = new Filmshow();
 
-  constructor(private filmshowService: FilmshowService, private filmService: FilmService, private hallService: HallService) { }
+  constructor(private filmshowService: FilmshowService, private filmService: FilmService,
+              private hallService: HallService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.getFilmshows();
@@ -32,7 +34,7 @@ export class FilmshowsComponent implements OnInit {
     this.hallService.getHalls().subscribe(response => {
       this.halls = response;
     }, error => {
-      console.log('Unable to get halls');
+      this.alertify.error('Can not get halls');
     });
   }
 
@@ -40,7 +42,7 @@ export class FilmshowsComponent implements OnInit {
     this.filmService.getFilms().subscribe(response => {
       this.films = response;
     }, error => {
-      console.log('Unable to get films');
+      this.alertify.error('Can not get films');
     });
   }
 
@@ -48,7 +50,7 @@ export class FilmshowsComponent implements OnInit {
     this.filmshowService.getFilmshows().subscribe(response => {
       this.filmshows = response;
     }, error => {
-      console.log('Unable to get filmshows');
+      this.alertify.error('Can not get filmshows');
     });
   }
 
@@ -60,20 +62,22 @@ export class FilmshowsComponent implements OnInit {
     this.filmshowToAdd.filmshowTime = newDate;
 
     this.filmshowService.addFilmshow(this.filmshowToAdd).subscribe(() => {
-      console.log('Filmshow added');
+      this.alertify.success('Filmshow added!');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not add filmshow');
     });
   }
 
   delete(filmshowId: any) {
+    if (confirm('Are you sure to delete filmshow?')) {
     this.filmshowService.deleteFilmshow(filmshowId).subscribe(() => {
-      console.log('Filmshow deleted');
+      this.alertify.success('Filmshow deleted');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not delete filmshow');
     });
+  }
   }
 
   prepareEdit(filmshowId: any, filmshowDate: any, filmId: string, hallId: string) {
@@ -87,17 +91,19 @@ export class FilmshowsComponent implements OnInit {
   }
 
   edit() {
+    if (confirm('Are you sure to edit filmshow?')) {
     const newDate = new Date();
     console.log(this.date);
     newDate.setUTCHours(this.time.hour, this.time.minute);
     newDate.setUTCFullYear(this.date.year, this.date.month - 1, this.date.day);
     this.filmshowToAdd.filmshowTime = newDate;
     this.filmshowService.editFilmshow(this.filmshowToAdd).subscribe(() => {
-      console.log('Filmshow edited');
+      this.alertify.success('Filmshow edited!');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not edit filmshow');
     });
+  }
   }
 
   resetAndReload() {

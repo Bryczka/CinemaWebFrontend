@@ -28,6 +28,7 @@ import { UserTicketsComponent } from './user-tickets/user-tickets.component';
 import { MatDialogModule, MatInputModule } from '@angular/material';
 import { NavigateTicketsComponent } from './_modals/navigate-tickets/navigate-tickets.component';
 import { ErrorInterceptorProvider } from './_interceptors/error.interceptor';
+import { SetEmployeesComponent } from './set-employees/set-employees.component';
 
 
 export function tokenGetter() {
@@ -48,7 +49,8 @@ export function tokenGetter() {
       LoginComponent,
       PaypalComponent,
       UserTicketsComponent,
-      NavigateTicketsComponent
+      NavigateTicketsComponent,
+      SetEmployeesComponent
    ],
    imports: [
       BrowserModule,

@@ -9,6 +9,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { UserTicketsComponent } from './user-tickets/user-tickets.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { RoleGuard } from './_guards/role.guard';
+import { SetEmployeesComponent } from './set-employees/set-employees.component';
 
 export const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -19,5 +20,6 @@ export const appRoutes: Routes = [
     {path: 'tickets', component: TicketsComponent},
     {path: 'films/:filmId', component: FilmsDetailedComponent},
     {path: 'user/tickets', component: UserTicketsComponent, canActivate: [AuthGuard]},
+    {path: 'roles', component: SetEmployeesComponent, canActivate: [RoleGuard]},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

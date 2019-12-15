@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HallService } from '../_services/hall.service';
 import { NgModel, NgForm } from '@angular/forms';
 import { Hall } from '../models/Hall';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-halls',
@@ -12,7 +13,7 @@ export class HallsComponent implements OnInit {
   halls = new Array<Hall>();
   hallToAdd = new Hall();
 
-  constructor(private hallService: HallService) { }
+  constructor(private hallService: HallService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.getHalls();
@@ -22,26 +23,28 @@ export class HallsComponent implements OnInit {
     this.hallService.getHalls().subscribe(response => {
       this.halls = response;
     }, error => {
-      console.log('Unable to get halls');
+      this.alertify.error('Can not get halls');
     });
   }
 
   addHall() {
     this.hallService.addHall(this.hallToAdd).subscribe(() => {
-      console.log('Hall added');
+      this.alertify.success('Hall added!');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not delete hall');
     });
   }
 
   delete(hallId: any) {
+    if (confirm('Are you sure to delete hall?')) {
     this.hallService.deleteHall(hallId).subscribe(() => {
-      console.log('Hall deleted');
+      this.alertify.success('Hall deleted');
       this.resetAndReload();
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not delete hall');
     });
+  }
   }
 
   resetAndReload() {

@@ -23,6 +23,10 @@ getUserTickets(userId: string) {
   return this.http.get<Array<Ticket>>(this.baseUrl + 'tickets/' + userId);
 }
 
+getCurrentUserTickets(userId: string) {
+  return this.http.get<Array<Ticket>>(this.baseUrl + 'tickets/filter/' + userId);
+}
+
 getFilmshowTickets(filmshowId: string) {
   return this.http.get<Array<Ticket>>(this.baseUrl + 'tickets/filmshow/' + filmshowId);
 }

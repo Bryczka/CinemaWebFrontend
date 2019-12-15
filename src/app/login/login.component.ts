@@ -21,9 +21,4 @@ export class LoginComponent implements OnInit {
       console.log('Failed to login');
     });
   }
-
-  cancel() {
-    console.log('Canceled register');
-  }
-
 }

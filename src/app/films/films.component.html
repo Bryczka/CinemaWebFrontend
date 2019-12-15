@@ -74,7 +74,7 @@
         <td>
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-secondary" (click)="prepareEdit(film.filmId, film.title, film.category, film.length, film.rating, film.description, film.imageBase64)">Edit</button>
-            <button type="button" class="btn btn-secondary" (click)="delete(film.filmId)">Delete</button>
+            <button type="button" class="btn btn-secondary" (click)="delete(film.filmId, film.title)">Delete</button>
           </div>
         </td>
       </tr>

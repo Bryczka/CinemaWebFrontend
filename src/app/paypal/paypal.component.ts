@@ -8,6 +8,7 @@ import { Seat } from '../models/Seat';
 import { MatDialog } from '@angular/material';
 import { NavigateTicketsComponent } from '../_modals/navigate-tickets/navigate-tickets.component';
 import { TicketsComponent } from '../tickets/tickets.component';
+import { AlertifyService } from '../_services/alertify.service';
 
 
 declare var paypal;
@@ -28,7 +29,8 @@ export class PaypalComponent implements OnInit {
   tickets = new Array<Ticket>();
 
   constructor(private data: DataService, private ticketsComponent: TicketsComponent,
-              private ticketService: TicketService, private auth: AuthService, private matDialog: MatDialog) { }
+              private ticketService: TicketService, private auth: AuthService, private matDialog: MatDialog,
+              private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
@@ -79,9 +81,8 @@ export class PaypalComponent implements OnInit {
 
   addTickets() {
     this.ticketService.addTickets(this.createTickets()).subscribe(() => {
-      console.log('Tickets added');
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not add tickets');
     });
   }
   openModal() {

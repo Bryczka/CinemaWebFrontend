@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../_services/film.service';
 import { Film } from '../models/Film';
 import { AlertifyService } from '../_services/alertify.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-films',
@@ -14,7 +15,7 @@ export class FilmsComponent implements OnInit {
   editMode: boolean;
   url: any = '../assets/images/no-image.jpg';
 
-  constructor(private filmService: FilmService, private alertify: AlertifyService) { }
+  constructor(private filmService: FilmService, private alertify: AlertifyService, private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.getFilms();
@@ -24,18 +25,18 @@ export class FilmsComponent implements OnInit {
     this.filmService.getFilms().subscribe(response => {
       this.films = response;
     }, error => {
-      this.alertify.error('Unable to get films - some errors occured' + '\n' + error);
+      this.alertify.error('Unable to get films - some errors occured');
     });
   }
 
   addFilm() {
-    if(this.checkValidation()) {} else {
+    if (this.checkValidation()) {} else {
     this.filmToAdd.imageBase64 = this.url;
     this.filmService.addFilm(this.filmToAdd).subscribe(() => {
       this.alertify.success('Film added to databse');
       this.resetAndReload();
     }, error => {
-      this.alertify.error('Can not add film' + '\n' + error);
+      this.alertify.error('Can not add film');
     });
   }
   }
@@ -52,21 +53,25 @@ export class FilmsComponent implements OnInit {
   }
 
   edit() {
+    if (confirm('Are you sure to edit ' + this.filmToAdd.title)) {
     this.filmService.editFilm(this.filmToAdd).subscribe(() => {
       this.alertify.success('Film edited');
       this.resetAndReload();
     }, error => {
-      this.alertify.error('Can not edit film' + '\n' + error);
+      this.alertify.error('Can not edit film');
     });
   }
+  }
 
-  delete(filmId: any) {
+  delete(filmId: any, filmTitle: string) {
+    if (confirm('Are you sure to delete ' + filmTitle)) {
     this.filmService.deleteFilm(filmId).subscribe(() => {
       this.alertify.success('Film deleted');
       this.resetAndReload();
     }, error => {
-      this.alertify.error('Can not delete film' + '\n' + error);
+      this.alertify.error('Can not delete film');
     });
+  }
   }
 
   readUrl(event: any) {

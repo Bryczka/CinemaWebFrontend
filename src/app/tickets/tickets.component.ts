@@ -8,6 +8,7 @@ import { Ticket } from '../models/Ticket';
 import { TicketService } from '../_services/ticket.service';
 import { MatDialog } from '@angular/material';
 import { NavigateTicketsComponent } from '../_modals/navigate-tickets/navigate-tickets.component';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-tickets',
@@ -25,7 +26,7 @@ tickets = new Array<Ticket>();
 public paymentCompleted: boolean;
 
   constructor(private data: DataService, private auth: AuthService, private ticketService: TicketService,
-              private matDialog: MatDialog) { }
+              private matDialog: MatDialog, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
@@ -47,6 +48,7 @@ public paymentCompleted: boolean;
       ticket.isPaid = false;
       ticket.userId = this.auth.getUserId();
       ticket.filmshowId = this.filmshow.filmshowId;
+
       this.tickets.push(ticket);
       }
     return this.tickets;
@@ -54,11 +56,10 @@ public paymentCompleted: boolean;
 
   addTickets() {
     this.ticketService.addTickets(this.createTickets()).subscribe(() => {
-      console.log('Tickets added');
       this.openModal();
       this.paymentCompleted = true;
     }, error => {
-      console.log(error);
+      this.alertify.error('Can not add tickets');
     });
   }
 
