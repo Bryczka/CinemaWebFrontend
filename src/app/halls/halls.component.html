@@ -27,7 +27,6 @@
                 <th scope="col">Hall ID</th>
                 <th scope="col">Hall Name</th>
                 <th scope="col">Seats</th>
-                <th scope="col">Filmshows</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +35,6 @@
                 <td>{{ hall.hallId }}</td>
                 <td>{{ hall.name }}</td>
                 <td>{{ hall.seats.length }}</td>
-                <td>{{hall.filmshows }}</td>
                 <td>
                     <button type="button" class="btn btn-secondary" (click)="delete(hall.hallId)">Delete</button>
                 </td>

@@ -30,11 +30,9 @@ export class RegisterComponent implements OnInit {
     console.log(this.emailFormControl.value);
     console.log(this.registerForm.value);
     this.authService.register(this.registerForm.value).subscribe(() => {
-      console.log('Registered');
       this.alertify.success('Registration succeeded');
       this.matDialog.closeAll();
     }, error => {
-      console.log(error);
       this.alertify.error(error);
     });
   }

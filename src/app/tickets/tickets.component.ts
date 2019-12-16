@@ -48,7 +48,6 @@ public paymentCompleted: boolean;
       ticket.isPaid = false;
       ticket.userId = this.auth.getUserId();
       ticket.filmshowId = this.filmshow.filmshowId;
-
       this.tickets.push(ticket);
       }
     return this.tickets;

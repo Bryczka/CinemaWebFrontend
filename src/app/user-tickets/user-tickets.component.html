@@ -1,6 +1,7 @@
 <div class="row m-2 text-center">
   <button class="btn btn-secondary" (click)="getUserTickets()" *ngIf="currentTickets">Load all tickets</button>
   <button class="btn btn-secondary" (click)="getCurrentUserTickets()" *ngIf="!currentTickets">Load current tickets</button>
+</div>
   <div class="row">
     <div class="card m-3" style="width: 14vw; height: 55vh;" *ngFor="let ticket of ticketList">
       <div class="card-body">
